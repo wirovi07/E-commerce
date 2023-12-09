@@ -7,7 +7,8 @@
                 <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top" alt="...">
                 <div class="card-body pt-2">
                     <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
-                    <del>@{{ formatPrecio(producto.original_price) }}</del>
+                    <del v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
+                    <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                     <div class="align-items-center d-flex h-100 justify-content-between">
                         <h3>$174.900</h3>
                         <h6 class="text-meli">37% OFF</h6>
@@ -53,7 +54,11 @@
                     // Verificar si es un número válido
                     if (!isNaN(precioNumerico)) {
                         // Formatear como moneda colombiana
-                        return precioNumerico.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+                        return precioNumerico.toLocaleString('es-CO', {
+                            style: 'currency',
+                            currency: 'COP',
+                            minimumFractionDigits: 0
+                        });
                     }
 
                     // Si no es un número válido, mostrar el valor original sin formato
