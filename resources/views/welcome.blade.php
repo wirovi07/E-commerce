@@ -11,7 +11,7 @@
                     <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                     <div class="align-items-center d-flex h-100 justify-content-between">
                         <h3>$174.900</h3>
-                        <h6 class="text-meli">37% OFF</h6>
+                        <h6 class="text-meli">@{{ producto.discount_percentage }} OFF</h6>
                     </div>
                     <h6>en 36 X # 3500</h6>
                     <div class="align-items-center d-flex h-100">
