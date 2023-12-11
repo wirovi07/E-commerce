@@ -10,10 +10,13 @@
                     <del v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
                     <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                     <div class="align-items-center d-flex h-100 justify-content-between">
-                        <h3>$174.900</h3>
-                        <h6 class="text-meli">@{{ producto.discount_percentage }} OFF</h6>
+                        <h3 v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 35)) }}</h3>
+                        <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
+                        <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
+                        <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                     </div>
-                    <h6>en 36 X # 3500</h6>
+                    <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price/36) }}</h6>
+                    <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
                     <div class="align-items-center d-flex h-100">
                         <span class="me-1 text-meli fw-semibold">Envío gratis</span>
                         <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
@@ -54,7 +57,7 @@
                     // Verificar si es un número válido
                     if (!isNaN(precioNumerico)) {
                         // Formatear como moneda colombiana
-                        return precioNumerico.toLocaleString('es-CO', {
+                        return Math.round(precioNumerico).toLocaleString('es-CO', {
                             style: 'currency',
                             currency: 'COP',
                             minimumFractionDigits: 0
@@ -63,6 +66,13 @@
 
                     // Si no es un número válido, mostrar el valor original sin formato
                     return precio;
+                },
+                calcularDescuento: function(precioOriginal, porcentajeDescuento) {
+                    const precioNumerico = parseFloat(precioOriginal);
+                    const descuento = precioNumerico * (porcentajeDescuento / 100);
+                    const precioDescontado = precioNumerico - descuento;
+
+                    return precioDescontado;
                 }
             },
         });
