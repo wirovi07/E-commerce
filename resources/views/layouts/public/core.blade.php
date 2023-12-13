@@ -13,6 +13,7 @@
         .text-meli {
             color: #00a650;
         }
+
         .text-meli-detalle {
             color: #00a650;
             align-items: center;
@@ -42,7 +43,8 @@
             margin-bottom: 8px;
             padding: 0;
         }
-        .cards-img{
+
+        .cards-img {
             box-sizing: border-box;
         }
 
@@ -52,7 +54,8 @@
             font-weight: 400;
             white-space: pre-wrap;
         }
-        .button-heart{
+
+        .button-heart {
             color: #3483fa;
             font-size: 20px;
             margin-bottom: 10px;
@@ -75,8 +78,8 @@
             margin-right: 2px;
         }
 
-        .more-sale .more-sale-vin a{
-            font-size: 12px; 
+        .more-sale .more-sale-vin a {
+            font-size: 12px;
             color: #ededed;
             font-weight: 600;
             padding: 3px 4px;
@@ -91,26 +94,94 @@
             color: #3483fa;
         }
 
-        .price_product{
+        .price_product {
             font-size: 16px;
             font-weight: 400;
-            color: rgba(0,0,0,.55);
+            color: rgba(0, 0, 0, .55);
         }
 
-        .price_product_with_porcentage{
-            color: rgba(0,0,0,.9);
+        .price_product_with_porcentage {
+            color: rgba(0, 0, 0, .9);
             font-weight: 390;
             font-size: 36px;
             letter-spacing: normal;
             line-height: 1.25;
         }
 
-        .info-cuotas{
+        .info-cuotas {
             font-weight: 400;
             font-size: 16px;
-            color: rgba(0,0,0,.9);
+            color: rgba(0, 0, 0, .9);
             margin: 0;
         }
+
+        .image-visa img {
+            width: 62px;
+            height: 35px;
+        }
+
+        .image-mastercard img {
+            width: 29px;
+            height: 24px;
+        }
+
+        .info-payment-p {
+            color: #3483fa;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .parrafo-1-info-general span {
+            font-size: 16px;
+            line-height: 1.3;
+            font-weight: 600;
+            color: #00a650;
+        }
+
+        .parrafo-1-info-general {
+            font-size: 16px;
+            line-height: 1.3;
+            color: rgba(0, 0, 0, .9);
+        }
+
+        .parrafo-2-info-general {
+            color: rgba(0, 0, 0, .55);
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .parrafo-3-info-general {
+            color: #3483fa;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .info-stock .info-stock-p {
+            color: rgba(0, 0, 0, .9);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .cantidad-option .cantidad {
+            font-size: 16px;
+        }
+
+        .cantidad-option .select-unidad {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: rgba(0, 0, 0, .9);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .cantidad-option .unidad {
+            color: rgba(0, 0, 0, .55);
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 5px;
+        }
+
     </style>
 </head>
 

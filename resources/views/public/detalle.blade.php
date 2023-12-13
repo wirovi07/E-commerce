@@ -59,8 +59,34 @@
                                 <h6 class="info-cuotas m-0">Hasta 48 cuotas</h6>
                                 <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
                                 <div class="align-items-center d-flex h-100">
-                                    <span class="me-1 text-meli fw-semibold">Envío gratis</span>
-                                    <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
+                                    <span class="me-1 text-meli fw-semibold image-visa"><img src="https://1000marcas.net/wp-content/uploads/2019/12/VISA-Logo.png" alt=""></span>
+                                    <b class="text-meli image-mastercard"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt=""></b>
+                                </div>
+                                <div class="info-payment">
+                                    <p class="info-payment-p mb-10">Más información</p>
+                                </div>
+                                <div class="info-general">
+                                    <div class="mt-20">
+                                        <p class="m-0 parrafo-1-info-general"><span>Envío gratis</span> a todo el país</p>
+                                        <p class="m-0 parrafo-2-info-general">Conoce los tiempos y las formas de envío</p>
+                                        <p class="m-0 parrafo-3-info-general">Calcular cuándo llega</p>
+                                    </div>
+                                </div>
+                                <div class="info-stock mt-4">
+                                    <p class="info-stock-p">Stock disponible</p>
+                                </div>
+                                <div class="cantidad-option">
+                                    <div class="align-items-center d-flex h-100">
+                                        <p class="cantidad">Cantidad:</p>
+                                        <select class="select-unidad mb-3">
+                                            <option value="1">1 Unidad</option>
+                                            <option value="2">2 Unidades</option>
+                                            <option value="3">3 Unidades</option>
+                                            <option value="4">4 Unidades</option>
+                                            <option value="5">5 Unidades</option>
+                                        </select>
+                                        <p class="unidad">(5 disponibles)</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
