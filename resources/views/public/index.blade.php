@@ -3,26 +3,28 @@
 @section('contenido')
     <div class="d-flex flex-wrap" id="productos">
         <div class="flex-item mb-4 me-3" v-for="producto in productos">
-            <div class="card" style="max-height: 410px; width:240px">
-                <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top" alt="...">
-                <div class="card-body pt-2">
-                    <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
-                    <del v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
-                    <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
-                    <div class="align-items-center d-flex h-100 justify-content-between">
-                        <h3 v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 35)) }}</h3>
-                        <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
-                        <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
+            <a :href="'/detalle/'+producto.id">
+                <div class="card" style="max-height: 410px; width:240px">
+                    <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top" alt="...">
+                    <div class="card-body pt-2">
+                        <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
+                        <del v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
                         <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
-                    </div>
-                    <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price/36) }}</h6>
-                    <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
-                    <div class="align-items-center d-flex h-100">
-                        <span class="me-1 text-meli fw-semibold">Envío gratis</span>
-                        <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
+                        <div class="align-items-center d-flex h-100 justify-content-between">
+                            <h3 v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 35)) }}</h3>
+                            <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
+                            <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
+                            <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
+                        </div>
+                        <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price/36) }}</h6>
+                        <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
+                        <div class="align-items-center d-flex h-100">
+                            <span class="me-1 text-meli fw-semibold">Envío gratis</span>
+                            <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 @endsection
