@@ -6,8 +6,45 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <img style="border-bottom: 1px #ccc solid;" :src="producto.pictures[0].url" class="card-img-top"
-                            alt="...">
+                        <div class="d-flex">
+                            <div class="img-product">
+                                <div v-for="(imagen, index) in producto.pictures" :key="index" 
+                                    class="img-product-1 mb-3" @click="cambiarImagenPrincipal(index)">
+                                    <img style="width: 44px; height: 40px; aspect-ratio: auto 44 / 44;" :src="imagen.url" class="card-img-top margin-img"
+                                        alt="...">
+                                </div>
+                            </div>
+                            <img style="border-bottom: 1px #ccc solid;" :src="producto.pictures[imagenPrincipalIndex].url" class="card-img-top m-auto img-principal" alt="...">
+                        </div>
+                        <p class="productos-rela mt-4">Productos Relacionados</p>
+                        <div class="d-flex flex-wrap">
+                            <div class="flex-item mb-4 me-3" v-for="producto in productos">
+                                <a :href="'/detalle/' + producto.id">
+                                    <div class="card" style="max-height: 410px; width:240px">
+                                        <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail"
+                                            class="card-img-top" alt="...">
+                                        <div class="card-body pt-2">
+                                            <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
+                                            <del v-if="producto.original_price"
+                                                :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
+                                            <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
+                                            <div class="align-items-center d-flex h-100 justify-content-between">
+                                                <h3 v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 35)) }}</h3>
+                                                <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
+                                                <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
+                                                <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
+                                            </div>
+                                            <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price / 36) }}</h6>
+                                            <h6 v-else>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
+                                            <div class="align-items-center d-flex h-100">
+                                                <span class="me-1 text-meli fw-semibold">Envío gratis</span>
+                                                <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="container-detalle mr-2">
@@ -32,7 +69,7 @@
                                         <i class="bi bi-star-fill fs-5"></i>
                                         <i class="bi bi-star-half fs-5"></i>
                                     </span>
-                                    <span class="color-span">(74)</span>
+                                    <span class="color-span">(@{{ producto.initial_quantity }})</span>
                                 </a>
                             </div>
                             <div class="container-more-sale d-flex mr-2">
@@ -48,19 +85,25 @@
                                 </div>
                             </div>
                             <div class="pt-2">
-                                <del class="price_product" v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
+                                <del class="price_product" v-if="producto.original_price"
+                                    :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
                                 <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                                 <div class="align-items-center d-flex h-100">
-                                    <h3 class="price_product_with_porcentage"v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 25)) }}</h3>
+                                    <h3 class="price_product_with_porcentage"v-if="producto.original_price">
+                                        @{{ formatPrecio(calcularDescuento(producto.original_price, 25)) }}</h3>
                                     <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
                                     <h6 v-if="producto.original_price" class="text-meli-detalle">25% OFF</h6>
                                     <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                                 </div>
                                 <h6 class="info-cuotas m-0">Hasta 48 cuotas</h6>
-                                <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
+                                <h6 v-else>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
                                 <div class="align-items-center d-flex h-100">
-                                    <span class="me-1 text-meli fw-semibold image-visa"><img src="https://1000marcas.net/wp-content/uploads/2019/12/VISA-Logo.png" alt=""></span>
-                                    <b class="text-meli image-mastercard"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt=""></b>
+                                    <span class="me-1 text-meli fw-semibold image-visa"><img
+                                            src="https://1000marcas.net/wp-content/uploads/2019/12/VISA-Logo.png"
+                                            alt=""></span>
+                                    <b class="text-meli image-mastercard"><img
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png"
+                                            alt=""></b>
                                 </div>
                                 <div class="info-payment">
                                     <p class="info-payment-p mb-10">Más información</p>
@@ -88,6 +131,39 @@
                                         <p class="unidad">(5 disponibles)</p>
                                     </div>
                                 </div>
+                                <div class="d-grid mx-auto">
+                                    <button type="button" class="style-button-compra">Comprar ahora</button>
+                                </div>
+                                <div class="d-grid mx-auto">
+                                    <button type="button" class="style-button-carrito">Agregar al carrito</button>
+                                </div>
+                                <div class="info-vend">
+                                    <div class="mt-3">
+                                        <div class="d-flex">
+                                            <span>Vendido por </span>
+                                            <span class="info-general-vendedor"> WG Baruch</span>
+                                        </div>
+                                        <div class="d-flex">
+                                            <span>MercadoLíder</span>
+                                            <span class="subtitle-vendedor"> | +10mil vendidos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="info-cliente">
+                                    <div class="mt-3 info-cliente-1">
+                                        <i class="bi bi-arrow-return-left"></i>
+                                        <span class="info-cliente-1-span">Devolución gratis. </span>
+                                        <span class="info-general-cliente"> Tienes 30 dias desde que lo recibes.</span>
+                                    </div>
+                                    <div>
+                                        <div class="mt-3 info-cliente-1">
+                                            <i class="bi bi-shield-check"></i>
+                                            <span class="info-cliente-1-span">Compra Protegida </span>
+                                            <span class="info-general-cliente mt-3">, recibe el producto que esperabas o te
+                                                devolvemos el dinero.</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +182,8 @@
                 this.detalleProductos("{{ $id }}")
             },
             data: {
-                producto: {}
+                producto: {},
+                imagenPrincipalIndex: 0 
             },
             methods: {
                 detalleProductos: function(id) {
@@ -142,6 +219,10 @@
                     const precioDescontado = precioNumerico - descuento;
 
                     return precioDescontado;
+                },
+                cambiarImagenPrincipal: function(index) {
+                    // Cambiar la imagen principal al hacer clic en una miniatura
+                    this.imagenPrincipalIndex = index;
                 }
             },
         });

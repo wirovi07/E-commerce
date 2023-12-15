@@ -22,6 +22,35 @@
             font-size: 18px;
         }
 
+        .productos-rela {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .margin-img {
+            margin: 3px 0px 1px 2px;
+        }
+
+        .img-principal{
+            width: 600px;
+            height: 500px;
+            padding: 26px;
+            margin: 24px 24px 50px 24px;
+            top: 0;
+        }
+
+        .img-product .img-product-1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+        .img-product .img-product-1:hover {
+            border-color: #3483fa;
+            border-width: 2px;
+        }
         .two-lines {
             max-height: 3em;
             overflow: hidden;
@@ -182,6 +211,57 @@
             margin-left: 5px;
         }
 
+        .style-button-compra {
+            background-color: #3483fa;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            margin: 20px 5px 5px 5px;
+        }
+
+        .style-button-carrito {
+            background-color: rgba(65, 137, 230, .15);
+            border-color: transparent;
+            color: #3483fa;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            margin: 5px 5px 5px 5px;
+        }
+
+        .info-general-vendedor {
+            color: #3483fa;
+            margin-left: 2px;
+            font-weight: 600;
+        }
+
+        .subtitle-vendedor {
+            font-weight: 800;
+            margin-left: 2px;
+        }
+
+        .info-cliente-1 .info-cliente-1-span {
+            color: #3483fa;
+            font-weight: 600;
+        }
+
+        .info-cliente-1 i {
+            font-weight: 400;
+        }
+
+        .info-general-cliente {
+            color: rgba(0, 0, 0, .55);
+        }
+
+        .info-cliente-1-span {
+            color: #3483fa;
+            font-weight: 600;
+        }
     </style>
 </head>
 
