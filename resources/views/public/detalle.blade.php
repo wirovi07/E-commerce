@@ -14,28 +14,29 @@
                                         alt="...">
                                 </div>
                             </div>
-                            <img style="border-bottom: 1px #ccc solid;" :src="producto.pictures[imagenPrincipalIndex].url" class="card-img-top m-auto img-principal" alt="...">
+                            <img style="border-bottom: 1px rgb(204, 204, 204) solid;" :src="producto.pictures[imagenPrincipalIndex].url" class="card-img-top m-auto img-principal style-border" alt="...">
                         </div>
-                        <p class="productos-rela mt-4">Productos Relacionados</p>
-                        <div class="d-flex flex-wrap">
-                            <div class="flex-item mb-4 me-3" v-for="producto in productos">
-                                <a :href="'/detalle/' + producto.id">
+                        <div>
+                            <p class="productos-rela mt-4 m-0">Productos Relacionados</p>
+                            <span class="promocionado">Promocionado</span>
+                        </div>
+                        <div class="d-flex" style="max-width: 100%;overflow: auto" id="productos">
+                            <div class="flex-item mb-4 me-3" v-for="relacionado in relacionados">
+                                <a :href="'/detalle/'+relacionado.id">
                                     <div class="card" style="max-height: 410px; width:240px">
-                                        <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail"
-                                            class="card-img-top" alt="...">
+                                        <img style="border-bottom: 1px #ccc solid;" :src="relacionado.thumbnail" class="card-img-top" alt="...">
                                         <div class="card-body pt-2">
-                                            <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
-                                            <del v-if="producto.original_price"
-                                                :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
+                                            <p class="card-text mb-2 two-lines">@{{ relacionado.title }}</p>
+                                            <del v-if="relacionado.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(relacionado.original_price) }}</del>
                                             <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                                             <div class="align-items-center d-flex h-100 justify-content-between">
-                                                <h3 v-if="producto.original_price">@{{ formatPrecio(calcularDescuento(producto.original_price, 35)) }}</h3>
-                                                <h3 v-else>@{{ formatPrecio(producto.price) }}</h3>
-                                                <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
+                                                <h3 v-if="relacionado.original_price">@{{ formatPrecio(calcularDescuento(relacionado.original_price, 35)) }}</h3>
+                                                <h3 v-else>@{{ formatPrecio(relacionado.price) }}</h3>
+                                                <h6 v-if="relacionado.original_price" class="text-meli">35% OFF</h6>
                                                 <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                                             </div>
-                                            <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price / 36) }}</h6>
-                                            <h6 v-else>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
+                                            <h6 v-if="relacionado.original_price">en 36 X # @{{ formatPrecio(relacionado.original_price/36) }}</h6>
+                                            <h6 v-else>en 36 X # @{{ formatPrecio(relacionado.price/36) }}</h6>
                                             <div class="align-items-center d-flex h-100">
                                                 <span class="me-1 text-meli fw-semibold">Envío gratis</span>
                                                 <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
@@ -44,6 +45,9 @@
                                     </div>
                                 </a>
                             </div>
+                        </div>
+                        <div>
+                            <p style="white-space: pre-line;" v-html="descripcion" class="fs-5 text-body-secondary"></p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -96,7 +100,7 @@
                                     <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                                 </div>
                                 <h6 class="info-cuotas m-0">Hasta 48 cuotas</h6>
-                                <h6 v-else>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
+                                <h6>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
                                 <div class="align-items-center d-flex h-100">
                                     <span class="me-1 text-meli fw-semibold image-visa"><img
                                             src="https://1000marcas.net/wp-content/uploads/2019/12/VISA-Logo.png"
@@ -175,26 +179,51 @@
 
 @section('add-scripts')
     <script>
-        const url = "https://api.mercadolibre.com/items/";
+        const url = "https://api.mercadolibre.com/";
         var vue_app = new Vue({
             el: '#producto',
             created() {
                 this.detalleProductos("{{ $id }}")
+                this.descripcionProducto("{{ $id }}")                
             },
             data: {
                 producto: {},
-                imagenPrincipalIndex: 0 
+                imagenPrincipalIndex: 0 ,
+                relacionados:[],
+                descripcion: ''
             },
             methods: {
                 detalleProductos: function(id) {
-                    axios.get(`${url}${id}`)
+                    axios.get(`${url}items/${id}`)
                         .then(res => {
                             let data = res.data
                             this.producto = data
+                            this.productosRelacionados(this.producto.category_id)
                         })
                         .catch(err => {
                             console.error(err);
                         })
+                },
+                productosRelacionados: function(categoria_id){
+                    axios.get(`${url}sites/MCO/search?category=${categoria_id}`)
+                    .then(res => {
+                        let data = res.data
+                        this.relacionados =data.results
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
+                },
+                descripcionProducto: function(id){
+                    axios.get(`${url}items/${id}/description`)
+                    .then(res => {
+                        let data = res.data
+                        this.descripcion  = data.plain_text
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
                 },
                 formatPrecio: function(precio) {
                     // Asegurar que el precio sea un número
@@ -221,7 +250,6 @@
                     return precioDescontado;
                 },
                 cambiarImagenPrincipal: function(index) {
-                    // Cambiar la imagen principal al hacer clic en una miniatura
                     this.imagenPrincipalIndex = index;
                 }
             },

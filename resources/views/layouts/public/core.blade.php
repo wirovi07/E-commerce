@@ -56,6 +56,10 @@
             overflow: hidden;
             line-height: 1.5em
         }
+        .promocionado{
+            font-size: 12px;
+            color: rgba(0, 0, 0, .55);
+        }
 
         /* DETALLE */
         .container-detalle {
