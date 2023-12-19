@@ -266,6 +266,34 @@
             color: #3483fa;
             font-weight: 600;
         }
+
+        /* CARRITO */
+        .card-container{
+            gap: 32px;
+            margin: 30px 50px 50px 50px;
+        }
+
+        .card-1{
+            min-height: 400px;
+            min-width: 800px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 6px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card-2{ 
+            min-width: 350px;
+            height: 150px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 6px;
+            justify-content: center;
+            text-align: center;
+            position: -webkit-sticky;
+            position: sticky;
+        }
     </style>
 </head>
 

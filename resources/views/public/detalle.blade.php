@@ -125,7 +125,7 @@
                                 <div class="cantidad-option">
                                     <div class="align-items-center d-flex h-100">
                                         <p class="cantidad">Cantidad:</p>
-                                        <select class="select-unidad mb-3">
+                                        <select class="select-unidad mb-3" v-model="cantidad">
                                             <option value="1">1 Unidad</option>
                                             <option value="2">2 Unidades</option>
                                             <option value="3">3 Unidades</option>
@@ -136,10 +136,10 @@
                                     </div>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-compra"  @click="openCart">Comprar ahora</button>
+                                    <button type="button" class="style-button-compra" @click="openCart">Comprar ahora</button>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-carrito"  @click="addToCart(producto)>Agregar al carrito</button>
+                                    <button type="button" class="style-button-carrito" @click="addToCart">Agregar al carrito</button>
                                 </div>
                                 <div class="info-vend">
                                     <div class="mt-3">
@@ -192,6 +192,7 @@
                 relacionados:[],
                 descripcion: '',
                 cart: [],
+                cantidad:1,
             },
             methods: {
                 detalleProductos: function(id) {
@@ -253,10 +254,21 @@
                 cambiarImagenPrincipal: function(index) {
                     this.imagenPrincipalIndex = index;
                 },
-                addToCart(producto) {
+                addToCart() {
+                    this.loadCart();
                     // Agregar producto al carrito
-                    this.cart.push(producto);
-                    // Guardar el carrito en localStorage
+                    const existe = this.cart.findIndex((car) => car.id == this.producto.id)
+
+                    if(existe == -1){
+                        this.cart.push({
+                            id:this.producto.id,
+                            nombre:this.producto.title,
+                            imagen:this.producto.pictures[0].url,
+                            cantidad: this.cantidad
+                        });
+                    }else{
+                        this.cart[existe].cantidad = parseInt(this.cart[existe].cantidad) + parseInt(this.cantidad)
+                    }
                     this.saveCart();
                 },
                 saveCart() {
@@ -274,17 +286,6 @@
                     // Guardar el carrito en localStorage
                     this.saveCart();
                 },
-                openCart() {
-                    // Puedes realizar acciones adicionales antes de redirigir al carrito
-                    console.log('Abrir carrito...');
-                    // Puedes redirigir a una página de carrito o mostrar el contenido del carrito en un modal
-                },
-            },
-            
-            created() {
-                // ... tu código existente ...
-                // Cargar el carrito al iniciar la aplicación
-                this.loadCart();
             },
         });
     </script>
