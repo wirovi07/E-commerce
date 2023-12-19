@@ -20,7 +20,7 @@
                             <p class="productos-rela mt-4 m-0">Productos Relacionados</p>
                             <span class="promocionado">Promocionado</span>
                         </div>
-                        <div class="d-flex" style="max-width: 100%;overflow: auto" id="productos">
+                        <div class="d-flex" style="max-width: 100%; overflow: auto" id="productos">
                             <div class="flex-item mb-4 me-3" v-for="relacionado in relacionados">
                                 <a :href="'/detalle/'+relacionado.id">
                                     <div class="card" style="max-height: 410px; width:240px">
@@ -136,10 +136,10 @@
                                     </div>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-compra">Comprar ahora</button>
+                                    <button type="button" class="style-button-compra"  @click="openCart">Comprar ahora</button>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-carrito">Agregar al carrito</button>
+                                    <button type="button" class="style-button-carrito"  @click="addToCart(producto)>Agregar al carrito</button>
                                 </div>
                                 <div class="info-vend">
                                     <div class="mt-3">
@@ -190,7 +190,8 @@
                 producto: {},
                 imagenPrincipalIndex: 0 ,
                 relacionados:[],
-                descripcion: ''
+                descripcion: '',
+                cart: [],
             },
             methods: {
                 detalleProductos: function(id) {
@@ -251,7 +252,39 @@
                 },
                 cambiarImagenPrincipal: function(index) {
                     this.imagenPrincipalIndex = index;
-                }
+                },
+                addToCart(producto) {
+                    // Agregar producto al carrito
+                    this.cart.push(producto);
+                    // Guardar el carrito en localStorage
+                    this.saveCart();
+                },
+                saveCart() {
+                    // Guardar el carrito en localStorage
+                    localStorage.setItem('cart', JSON.stringify(this.cart));
+                },
+                loadCart() {
+                    // Cargar el carrito desde localStorage
+                    const savedCart = localStorage.getItem('cart');
+                    this.cart = savedCart ? JSON.parse(savedCart) : [];
+                },
+                removeFromCart(item) {
+                    // Quitar producto del carrito
+                    this.cart = this.cart.filter(product => product.id !== item.id);
+                    // Guardar el carrito en localStorage
+                    this.saveCart();
+                },
+                openCart() {
+                    // Puedes realizar acciones adicionales antes de redirigir al carrito
+                    console.log('Abrir carrito...');
+                    // Puedes redirigir a una página de carrito o mostrar el contenido del carrito en un modal
+                },
+            },
+            
+            created() {
+                // ... tu código existente ...
+                // Cargar el carrito al iniciar la aplicación
+                this.loadCart();
             },
         });
     </script>
