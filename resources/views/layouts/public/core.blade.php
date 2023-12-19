@@ -31,7 +31,7 @@
             margin: 3px 0px 1px 2px;
         }
 
-        .img-principal{
+        .img-principal {
             width: 600px;
             height: 500px;
             padding: 26px;
@@ -47,16 +47,19 @@
             overflow: hidden;
             border-radius: 3px;
         }
+
         .img-product .img-product-1:hover {
             border-color: #3483fa;
             border-width: 2px;
         }
+
         .two-lines {
             max-height: 3em;
             overflow: hidden;
             line-height: 1.5em
         }
-        .promocionado{
+
+        .promocionado {
             font-size: 12px;
             color: rgba(0, 0, 0, .55);
         }
@@ -268,31 +271,33 @@
         }
 
         /* CARRITO */
-        .card-container{
+        .card-container {
             gap: 32px;
             margin: 30px 50px 50px 50px;
         }
-
-        .card-1{
-            min-height: 400px;
-            min-width: 800px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 6px;
-            justify-content: center;
-            text-align: center;
+        .style-principla-words{
+            margin: 5px 24px;
         }
-
-        .card-2{ 
-            min-width: 350px;
-            height: 150px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 6px;
-            justify-content: center;
-            text-align: center;
-            position: -webkit-sticky;
-            position: sticky;
+        .style-words {
+            fill: #3483fa;
+            align-items: center;
+            color: #3483fa;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: Proxima Nova, -apple-system, Roboto, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            text-decoration: none;
+            transition: .15s ease-in-out;
+            margin: 1px 12px 1px 0px;
+        }
+        .botton-increm{
+            border: 1px solid rgba(0,0,0,.1);
+            border-radius: 5px;
+        }
+        .botton-increm-input{
+            margin: 0px 12px 0px 12px;
         }
     </style>
 </head>

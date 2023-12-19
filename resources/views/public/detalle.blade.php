@@ -264,7 +264,8 @@
                             id:this.producto.id,
                             nombre:this.producto.title,
                             imagen:this.producto.pictures[0].url,
-                            cantidad: this.cantidad
+                            cantidad: this.cantidad,
+                            precio: this.producto.price
                         });
                     }else{
                         this.cart[existe].cantidad = parseInt(this.cart[existe].cantidad) + parseInt(this.cantidad)

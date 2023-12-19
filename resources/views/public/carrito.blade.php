@@ -3,17 +3,42 @@
 @section('contenido')
     <div class="row ">
 
-        <div id="productos" class="col-md-8">
+        <div id="productocarrito" class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Productos
                 </div>
-                <div class="card-body">
-                    <div class="flex-item mb-4 me-3" v-for="producto in cart">
-                        <a :href="'/detalle/' + producto.id">
+                <div class="card-body p-5 row">
+                    <div class="row">
+                        <div class="flex-item mb-4 me-3 d-flex" v-for="producto in cart">
+                            <div class="col-md-6 d-flex ">
+                                <a :href="'/detalle/' + producto.id">
+                                    <img style="width: 64px; height: 64px;" :src="producto.imagen" class="card-img-top"
+                                        alt="...">
+                                </a>
+                                <div>
+                                    <span
+                                        style="font-size: 16px; font-weight: 600; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                        class="m-4 one-line">
+                                        @{{ truncateText(producto.nombre, 50) }}
+                                    </span>
 
-                            <img style="width: 64px; height: 64px;" :src="producto.imagen" class="card-img-top" alt="...">
-                        </a>
+                                    <div class="style-principla-words">
+                                        <span class="style-words">Eliminar</span>
+                                        <span class="style-words">Guardar</span>
+                                        <span class="style-words">comprar ahora</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 botton-increm mb-xxl-5">
+                                <div class="text-center">
+                                    <span onclick="decrementarCantidad()">-</span>
+                                    <input class="botton-increm-input" type="text" id="cantidad" value="1"
+                                        style="width: 30px; text-align: center; border: none" readonly>
+                                    <span onclick="incrementarCantidad()">+</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -34,12 +59,11 @@
 @section('add-scripts')
     <script>
         var vue_app = new Vue({
-            el: '#productos',
+            el: '#productocarrito',
             created() {
                 this.loadCart()
             },
             data: {
-                productos: [],
                 cart: []
             },
             methods: {
@@ -71,13 +95,15 @@
                     this.loadCart();
                     // Agregar producto al carrito
                     const existe = this.cart.findIndex((car) => car.id == this.producto.id)
+                    console.log(this.existe)
 
                     if (existe == -1) {
                         this.cart.push({
                             id: this.producto.id,
                             nombre: this.producto.title,
                             imagen: this.producto.pictures[0].url,
-                            cantidad: this.cantidad
+                            cantidad: this.cantidad,
+                            precio: this.producto.original_price
                         });
                     } else {
                         this.cart[existe].cantidad = parseInt(this.cart[existe].cantidad) + parseInt(this.cantidad)
@@ -98,6 +124,13 @@
                     this.cart = this.cart.filter(product => product.id !== item.id);
                     // Guardar el carrito en localStorage
                     this.saveCart();
+                },
+                truncateText(text, maxLength) {
+                    if (text.length > maxLength) {
+                        return text.substring(0, maxLength) + '...';
+                    } else {
+                        return text;
+                    }
                 },
             }
         });

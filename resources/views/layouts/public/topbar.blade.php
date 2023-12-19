@@ -29,7 +29,7 @@
                         Ingresar</a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="dropdown-item text-white" href="carrito"><i class="bi bi-cart"></i></a>
+                    <a class="dropdown-item text-white" href="{{ route('carrito') }}"><i class="bi bi-cart"></i></a>
                 </li>
             </ul>
         </li>

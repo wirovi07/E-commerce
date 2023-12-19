@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><i
+                        <a class="app-notification__item" href="javascript;"><span class="app-notification__icon"><i
                                     class="bi bi-cash fs-4 text-success"></i></span>
                             <div>
                                 <p class="app-notification__message">
