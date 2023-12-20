@@ -20,7 +20,7 @@
                                     <span
                                         style="font-size: 16px; font-weight: 600; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                                         class="m-4 one-line">
-                                        @{{ truncateText(producto.nombre, 50) }}
+                                        @{{ truncateText(producto.nombre, 70) }}
                                     </span>
 
                                     <div class="style-principla-words cursor-pointer">
@@ -30,12 +30,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 botton-increm text-center" style="width: 100px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer"> 
-                                <span style="font-size: 26px; font-weight: 400; color: rgba(0, 0, 0, .55);" @click="decrementarCantidad(producto)">-</span>
+                            <div class="col-md-4 botton-increm text-center"
+                                style="width: 100px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+                                <span style="font-size: 26px; font-weight: 400; color: rgba(0, 0, 0, .55);"
+                                    @click="decrementarCantidad(producto)">-</span>
                                 <input class="botton-increm-input" type="text" v-model="producto.cantidad"
                                     style="width: 30px; text-align: center; border: none; font-size: 18px" readonly>
-                                <span style="font-size: 22px; color: #3483fa; font-weight: 500" @click="incrementarCantidad(producto)">+</span>
-                            </div>                                                    
+                                <span style="font-size: 22px; color: #3483fa; font-weight: 500"
+                                    @click="incrementarCantidad(producto)">+</span>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="align-items-center">
+                                    <div class="d-flex">
+                                        <h6 v-if="producto.precio" class="text-meli-carrito mr-2 fs-6">-25%</h6>
+                                        <del class="fs-8 text-body-tertiary px-2" style="margin-top: -3px"  v-if="producto.precio">@{{ formatPrecio(producto.precio) }}</del>
+                                        <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
+                                    </div>
+                                    <div class="ml-2">
+                                        <h3 class="fs-5 fw-medium" style="margin-top: -5px; margin: -5px 0px 0px 25px"  v-if="producto.precio">
+                                            @{{ formatPrecio(calcularDescuento(producto.precio, 25)) }}</h3>
+                                        <h3 v-else>@{{ formatPrecio(producto.precio) }}</h3>
+                                        <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -95,7 +114,8 @@
                             nombre: this.producto.title,
                             imagen: this.producto.pictures[0].url,
                             cantidad: this.cantidad,
-                            precio: this.producto.original_price
+                            precio: this.producto.original_price,
+                            disponible: this.producto.available_quantity
                         });
                     } else {
                         this.cart[existe].cantidad = parseInt(this.cart[existe].cantidad) + parseInt(this.cantidad)

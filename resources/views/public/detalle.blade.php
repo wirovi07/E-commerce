@@ -265,7 +265,8 @@
                             nombre:this.producto.title,
                             imagen:this.producto.pictures[0].url,
                             cantidad: this.cantidad,
-                            precio: this.producto.price
+                            precio: this.producto.price,
+                            disponible: this.producto.available_quantity
                         });
                     }else{
                         this.cart[existe].cantidad = parseInt(this.cart[existe].cantidad) + parseInt(this.cantidad)

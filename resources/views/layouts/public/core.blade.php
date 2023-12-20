@@ -299,6 +299,11 @@
         .botton-increm-input{
             margin: 0px 12px 0px 12px;
         }
+        .text-meli-carrito{
+            color: #00a650;
+            font-weight: 500;
+            font-size: 18px;
+        }
     </style>
 </head>
 
