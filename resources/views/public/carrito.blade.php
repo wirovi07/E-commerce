@@ -8,7 +8,7 @@
                 <div class="card-header">
                     Productos
                 </div>
-                <div class="card-body p-5 row">
+                <div class="card-body p-5 row" v-cloak>
                     <div class="row">
                         <div class="flex-item justify-content-between mb-4 me-3 d-flex" v-for="producto in cart">
                             <div class="col-md-6 d-flex ">
@@ -130,7 +130,7 @@
                     this.cart = savedCart ? JSON.parse(savedCart) : [];
                 },
                 removeFromCart(producto) {
-                    this.cart = this.cart.filter(product => product.id !== item.id);
+                    this.cart = this.cart.filter(product => product.id !== producto.id);
                     console.log(this.cart)
                     this.saveCart();
                 },

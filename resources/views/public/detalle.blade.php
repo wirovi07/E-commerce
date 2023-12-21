@@ -3,7 +3,7 @@
 @section('contenido')
     <div class="m-5">
         <div class="card" id="producto">
-            <div class="card-body">
+            <div class="card-body" v-if="Object.keys(producto).length !== 0 ">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="d-flex">
@@ -136,10 +136,10 @@
                                     </div>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-compra" @click="openCart">Comprar ahora</button>
+                                    <a href="/carrito" ><button type="button" class="style-button-compra w-100">Comprar ahora</button></a>
                                 </div>
                                 <div class="d-grid mx-auto">
-                                    <button type="button" class="style-button-carrito" @click="addToCart">Agregar al carrito</button>
+                                    <button type="button" class="style-button-carrito w-100" @click="addToCart">Agregar al carrito</button>
                                 </div>
                                 <div class="info-vend">
                                     <div class="mt-3">
@@ -172,6 +172,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                cargando ... 
             </div>
         </div>
     </div>
