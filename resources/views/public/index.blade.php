@@ -2,7 +2,7 @@
 
 @section('contenido')
     <div class="d-flex flex-wrap" id="productos">
-        <div class="flex-item mb-4 me-3" v-for="producto in productos">
+        <div class="flex-item mb-4 me-3" v-for="producto in productos" v-cloak>
             <a :href="'/detalle/'+producto.id">
                 <div class="card" style="max-height: 410px; width:240px">
                     <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top" alt="...">

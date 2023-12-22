@@ -3,7 +3,7 @@
 @section('contenido')
     <div class="m-5">
         <div class="card" id="producto">
-            <div class="card-body" v-if="Object.keys(producto).length !== 0 ">
+            <div class="card-body" v-if="Object.keys(producto).length !== 0 " v-cloak>
                 <div class="row">
                     <div class="col-md-8">
                         <div class="d-flex">
