@@ -53,12 +53,9 @@
                         })
                 },
                 formatPrecio: function(precio) {
-                    // Asegurar que el precio sea un número
                     const precioNumerico = parseFloat(precio);
 
-                    // Verificar si es un número válido
                     if (!isNaN(precioNumerico)) {
-                        // Formatear como moneda colombiana
                         return Math.round(precioNumerico).toLocaleString('es-CO', {
                             style: 'currency',
                             currency: 'COP',
@@ -66,7 +63,6 @@
                         });
                     }
 
-                    // Si no es un número válido, mostrar el valor original sin formato
                     return precio;
                 },
                 calcularDescuento: function(precioOriginal, porcentajeDescuento) {

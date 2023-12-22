@@ -2,16 +2,16 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav justify-content-between">
         <!--Categoria-->
-        <li class="navbar navbar-light">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+        <li class="navbar navbar-light" id="categorias">
+            <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
+                Categorias
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+                <li v-for="categoria in categorias" :key="categoria.id">
+                    <a class="dropdown-item" href="#">@{{ categoria.id }}</a>
+                </li>
+            </ul>                      
         </li>
 
         <!--Buscador-->
@@ -29,10 +29,41 @@
                         Ingresar</a>
                 </li>
                 <li class="list-inline-item">
-                    <a class="dropdown-item text-white" href="{{ route('carrito') }}"><i class="bi bi-cart"></i></a>
+                    <a class="dropdown-item text-white" href="{{ route('carrito') }}"><i
+                            class="bi bi-cart fs-4"></i></a>
                 </li>
             </ul>
         </li>
         <!-- User Menu-->
     </ul>
 </header>
+
+@section('add-scripts')
+    <script>
+        const url = "https://api.mercadolibre.com/sites/MCO";
+        var vue_app = new Vue({
+            el: '#categorias',
+            created() {
+                this.categoriaProductos();
+            },
+            data: {
+                categorias: []
+            },
+            methods: {
+                categoriaProductos: function(id) {
+                    axios.get(`${url}/categories`)
+                        .then(res => {
+                            let data = res.data;
+                            let results = data.results
+                            this.categorias = results;
+                            // Imprimir por consola la respuesta de la API
+                            console.log('Respuesta de la API:', results);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                },
+            },
+        });
+    </script>
+@endsection
