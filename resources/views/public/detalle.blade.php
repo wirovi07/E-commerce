@@ -182,7 +182,6 @@
 
 @section('add-scripts')
     <script>
-        const url = "https://api.mercadolibre.com/";
         var vue_app = new Vue({
             el: '#producto',
             created() {

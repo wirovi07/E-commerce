@@ -52,6 +52,10 @@
             border-color: #3483fa;
             border-width: 2px;
         }
+        .holver-dropdown-menu a:hover{
+            background-color: #3483fa;
+            color: #fff;
+        }
 
         .two-lines {
             max-height: 3em;

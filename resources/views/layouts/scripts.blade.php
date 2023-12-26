@@ -5,3 +5,30 @@
 <script src="{{ asset('asset/js/axios.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/fullcalendar.min.js') }}"></script>
+
+<script>
+    const url = "https://api.mercadolibre.com/";
+    var vue_app = new Vue({
+        el: '#categoriasapp',
+        created() {
+            this.categoriaProductos();
+        },
+        data: {
+            categorias: []
+        },
+        methods: {
+            categoriaProductos: function(id) {
+                axios.get(`${url}sites/MCO/categories`)
+                    .then(res => {
+                        let data = res.data;
+                        this.categorias = data;
+                        // Imprimir por consola la respuesta de la API
+                        console.log('Respuesta de la API:', data);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            },
+        },
+    });
+</script>

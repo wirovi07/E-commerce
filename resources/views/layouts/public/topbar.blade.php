@@ -1,15 +1,32 @@
+<style>
+    .scroll-hidden {
+        max-height: 500px; /* Ajusta la altura máxima según tus necesidades */
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+    }
+
+    .scroll-hidden::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .scroll-hidden::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+</style>
+
 <header class="app-header">
     <!-- Navbar Right Menu-->
     <ul class="app-nav justify-content-between">
         <!--Categoria-->
-        <li class="navbar navbar-light" id="categorias">
+        <li class="navbar navbar-light" id="categoriasapp">
             <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Categorias
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul class="dropdown-menu holver-dropdown-menu overflow-auto bg-black p-1 m-2 scroll-hidden" aria-labelledby="dropdownMenuButton1">
                 <li v-for="categoria in categorias" :key="categoria.id">
-                    <a class="dropdown-item" href="#">@{{ categoria.id }}</a>
+                    <a class="dropdown-item fs-6 fw-medium" style="color: white" :href="'/?categoria='+categoria.id + '&nombre='+categoria.name">@{{ categoria.name }}</a>
                 </li>
             </ul>                      
         </li>
@@ -37,33 +54,3 @@
         <!-- User Menu-->
     </ul>
 </header>
-
-@section('add-scripts')
-    <script>
-        const url = "https://api.mercadolibre.com/sites/MCO";
-        var vue_app = new Vue({
-            el: '#categorias',
-            created() {
-                this.categoriaProductos();
-            },
-            data: {
-                categorias: []
-            },
-            methods: {
-                categoriaProductos: function(id) {
-                    axios.get(`${url}/categories`)
-                        .then(res => {
-                            let data = res.data;
-                            let results = data.results
-                            this.categorias = results;
-                            // Imprimir por consola la respuesta de la API
-                            console.log('Respuesta de la API:', results);
-                        })
-                        .catch(err => {
-                            console.error(err);
-                        });
-                },
-            },
-        });
-    </script>
-@endsection

@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('public.index');
+Route::get('/', function (Request $request) {
+    $categoria = $request->get('categoria');
+    $nombre = $request->get('nombre');
+    return view('public.index', compact('categoria', 'nombre'));
 });
 
 Route::get('/detalle/{id}', function ($id) {
