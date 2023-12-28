@@ -22,8 +22,6 @@
                     .then(res => {
                         let data = res.data;
                         this.categorias = data;
-                        // Imprimir por consola la respuesta de la API
-                        console.log('Respuesta de la API:', data);
                     })
                     .catch(err => {
                         console.error(err);

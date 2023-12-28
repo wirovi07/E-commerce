@@ -20,13 +20,16 @@
     <ul class="app-nav justify-content-between">
         <!--Categoria-->
         <li class="navbar navbar-light" id="categoriasapp">
-            <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton1"
+            <button class="btn dropdown-toggle m-2" style="border: none; color: #fff" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 Categorias
             </button>
-            <ul class="dropdown-menu holver-dropdown-menu overflow-auto bg-black p-1 m-2 scroll-hidden" aria-labelledby="dropdownMenuButton1">
+            <ul class="dropdown-menu holver-dropdown-menu overflow-auto bg-black p-1 m-2 scroll-hidden">
                 <li v-for="categoria in categorias" :key="categoria.id">
                     <a class="dropdown-item fs-6 fw-medium" style="color: white" :href="'/?categoria='+categoria.id + '&nombre='+categoria.name">@{{ categoria.name }}</a>
+                </li>
+                <li>
+                    <a class="dropdown-item fs-6 fw-medium" style="color: white" href="/categoria">Mas categorias</a>
                 </li>
             </ul>                      
         </li>

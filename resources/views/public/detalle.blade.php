@@ -1,9 +1,9 @@
 @extends('layouts.public.core')
 
 @section('contenido')
-    <div class="m-5">
-        <div class="card" id="producto">
-            <div class="card-body" v-if="Object.keys(producto).length !== 0 " v-cloak>
+    <div class="m-5"  id="producto">
+        <div class="card" v-if="Object.keys(producto).length !== 0 " v-cloak>
+            <div class="card-body" >
                 <div class="row">
                     <div class="col-md-8">
                         <div class="d-flex">
@@ -173,9 +173,9 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
-                cargando ... 
-            </div>
+        </div>
+        <div v-else>
+                @include('public.cargando')
         </div>
     </div>
 @endsection

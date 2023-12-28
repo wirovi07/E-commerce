@@ -2,18 +2,20 @@
 
 @section('contenido')
     <div id="productos" v-cloak>
-        <h1 style="color: #666;
-        font-size: 20px;
-        font-weight: 400;
-        letter-spacing: 1.6px;
-        line-height: 1.13;
-        margin: 10px 0 10px 8px;
-        text-transform: uppercase;">@{{nombreCategoria}}</h1>
-        <div class="d-flex flex-wrap" >    
+
+        <h1
+            style="color: #666; font-size: 20px; font-weight: 400; letter-spacing: 1.6px; line-height: 1.13; margin: 10px 0 10px 8px; text-transform: uppercase;">
+            @{{ nombreCategoria }}
+        </h1>
+        <template v-if="cargando">
+            @include('public.cargando')
+        </template>
+        <div class="d-flex flex-wrap">
             <div class="flex-item mb-4 me-3" v-for="producto in productos">
-                <a :href="'/detalle/'+producto.id">
+                <a :href="'/detalle/' + producto.id">
                     <div class="card" style="max-height: 410px; width:240px">
-                        <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top" alt="...">
+                        <img style="border-bottom: 1px #ccc solid;" :src="producto.thumbnail" class="card-img-top"
+                            alt="...">
                         <div class="card-body pt-2">
                             <p class="card-text mb-2 two-lines">@{{ producto.title }}</p>
                             <del v-if="producto.original_price" :style="{ height: 'auto' }">@{{ formatPrecio(producto.original_price) }}</del>
@@ -24,8 +26,8 @@
                                 <h6 v-if="producto.original_price" class="text-meli">35% OFF</h6>
                                 <del v-else style="height: 1px; opacity: 0;">&nbsp;</del>
                             </div>
-                            <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price/36) }}</h6>
-                            <h6 v-else>en 36 X # @{{ formatPrecio(producto.price/36) }}</h6>
+                            <h6 v-if="producto.original_price">en 36 X # @{{ formatPrecio(producto.original_price / 36) }}</h6>
+                            <h6 v-else>en 36 X # @{{ formatPrecio(producto.price / 36) }}</h6>
                             <div class="align-items-center d-flex h-100">
                                 <span class="me-1 text-meli fw-semibold">Envío gratis</span>
                                 <b class="text-meli"><em><i class="bi bi-lightning-fill"></i>FULL</em></b>
@@ -35,22 +37,23 @@
                 </a>
             </div>
         </div>
-    </div>   
+    </div>
 @endsection
 
 @section('add-scripts')
     <script>
         var vue_app = new Vue({
             el: '#productos',
-            created() {                
-                if("{{$categoria}}"){
-                    this.productosCategoria("{{$categoria}}")
-                    this.nombreCategoria = "{{$nombre}}"
-                }else{
+            created() {
+                if ("{{ $categoria }}") {
+                    this.productosCategoria("{{ $categoria }}")
+                    this.nombreCategoria = "{{ $nombre }}"
+                } else {
                     this.listarProductos("pc")
                 }
             },
             data: {
+                cargando: true,
                 productos: [],
                 nombreCategoria: ""
             },
@@ -61,20 +64,26 @@
                             let data = res.data
                             let results = data.results
                             this.productos = results
+                            this.cargando = false;
+
+
                         })
                         .catch(err => {
                             console.error(err);
                         })
                 },
-                productosCategoria: function(categoria_id){
+                productosCategoria: function(categoria_id) {
                     axios.get(`${url}sites/MCO/search?category=${categoria_id}`)
-                    .then(res => {
-                        let data = res.data
-                        this.productos = data.results
-                    })
-                    .catch(err => {
-                        console.error(err); 
-                    })
+                        .then(res => {
+                            let data = res.data
+                            this.productos = data.results
+                            this.cargando = false;
+
+
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
                 },
                 formatPrecio: function(precio) {
                     const precioNumerico = parseFloat(precio);

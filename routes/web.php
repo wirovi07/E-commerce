@@ -16,3 +16,7 @@ Route::get('/detalle/{id}', function ($id) {
 Route::get('/carrito', function () {
     return view('public.carrito');
 })->name('carrito');
+
+Route::get('/categoria', function () {
+    return view('public.categoria');
+})->name('categoria');
